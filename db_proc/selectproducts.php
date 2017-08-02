@@ -2,7 +2,15 @@
     header('Content-Type: application/json');
     require '../connection.php';
 
-    if($query = mysqli_query($link,'SELECT id, title, description, price FROM products')){
+    $id = filter_input(INPUT_GET, 'id');
+    $id = mysqli_escape_string($link, $id);
+    $sql = "SELECT id, title, description, price FROM products";
+
+    if(!empty($id)){
+        $sql .= "WHERE id = $id";
+    }
+
+    if($query = mysqli_query($link,$sql)){
         
         $products = [];
         

@@ -2,31 +2,10 @@ function appendProduct(obj) {
     $('.product-list > .row').append("<div class='col-md-4' data-id = '" + obj.id + "'><h2>" + obj.title + "</h2><p>" + obj.price + "</p><p>" + obj.description + "</p><button class='btn btn-success editProduct' data-toggle='modal' data-target='#myModal'>Edit</button>&nbsp; &nbsp;<button class='btn btn-danger removeProduct'>Delete</button></div></div>");
 }
 
-function selectProduct(iId) {
-
-    $.post('db_proc/selectproduct.php', iId, function (res) {
-        var productList = res;
-        for (var product in productList) {
-            var item = JSON.stringify(productList[product]);
-            item = JSON.parse(item);
-            console.log(item);
-        }
-
-        $('#title').val(item.title);
-        $('#price').val(item.price);
-        $('#description').val(item.description);
+$.get('db_proc/selectproducts.php', function (res) {
+    $.each(res, function (id, obj) {
+        appendProduct(obj);
     });
-};
-
-$.post('db_proc/selectproducts.php', function (res) {
-
-    var productList = res;
-
-    for (var product in productList) {
-        var item = JSON.stringify(productList[product]);
-        item = JSON.parse(item);
-        appendProduct(item);
-    }
 });
 
 $('.newproduct').click(function () {
@@ -37,24 +16,13 @@ $('.newproduct').click(function () {
         price: $('#price').val(),
         description: $('#description').val()
     };
-    
-    if (itemId !== undefined) {
-          $.post('db_proc/updateproduct.php', product, function (res) {
-            if (res.status == "ok") {
-                location.reload();
-            }
-        });
-    }
-    else{
-        product.id=null;
-        $.post('db_proc/addnewproduct.php', product, function (res) {
 
-            if (res.status == "ok") {
-                appendProduct(product);
-            }
+    $.post('db_proc/addnewproduct.php', product, function (res) {
+        console.log(res);
+        $.each(res, function (id, obj) {
+            appendProduct(obj);
         });
-    }
-    
+    });
 
     $('#title').val('');
     $('#price').val('');
@@ -91,7 +59,12 @@ $(document).on('click', '.editProduct', function () {
     var iId = {
         id: itemId
     }
-    selectProduct(iId);
-    
+
+    $.get('db_proc/selectproducts.php', function (res) {
+        $.each(res, function (id, obj) {
+
+        });
+    });
+
     $('.newproduct').attr('data-id', itemId);
 });

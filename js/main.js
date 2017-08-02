@@ -17,12 +17,24 @@ $('.newproduct').click(function () {
         description: $('#description').val()
     };
 
-    $.post('db_proc/addnewproduct.php', product, function (res) {
-        console.log(res);
-        $.each(res, function (id, obj) {
-            appendProduct(obj);
+    console.log(itemId, typeof itemId);
+    if(itemId == undefined) {
+        $.post('db_proc/addnewproduct.php', product, function (res) {
+            console.log(res);
+            $.each(res, function (id, obj) {
+                appendProduct(obj);
+            });
         });
-    });
+    }
+    else{
+        $.post('db_proc/addnewproduct.php', product, function (res) {
+            console.log(res);
+//            $.each(res, function (id, obj) {
+//                appendProduct(obj);
+//            });
+        });
+    }
+    
 
     $('#title').val('');
     $('#price').val('');
@@ -62,7 +74,9 @@ $(document).on('click', '.editProduct', function () {
 
     $.get('db_proc/selectproducts.php', function (res) {
         $.each(res, function (id, obj) {
-
+            $('#title').val(obj.title);
+            $('#price').val(obj.price);
+            $('#description').val(obj.description);
         });
     });
 

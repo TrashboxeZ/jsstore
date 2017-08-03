@@ -12,8 +12,6 @@ $description = mysqli_escape_string($link, $description);
 $id = filter_input(INPUT_POST, 'id');
 $id = mysqli_escape_string($link, $id);
 
-var_dump($id);
-
 if(!empty($title) && !empty($price) && !empty($description)){
     
     # Обновление БД
@@ -21,27 +19,26 @@ if(!empty($title) && !empty($price) && !empty($description)){
         
          if($query = mysqli_query($link, "UPDATE products SET title='{$title}', description = '{$description}', price = '{$price}' WHERE id = {$id}")){
 
-            echo json_encode([ "id" => "{$id}", "title" => "{$title}", "description" => "{$description}", "price" => "{$price}"]);
+            echo json_encode([[ "id" => "{$id}", "title" => "{$title}", "description" => "{$description}", "price" => "{$price}"]]);
         }
-    }
-    
+    }else{
     # Вставка в БД
-    if($insQuery = mysqli_query($link, "INSERT INTO products VALUES (LAST_INSERT_ID(), '{$title}', '{$description}', '{$price}')")){
-        if($selQuery = mysqli_query($link, "SELECT id, title, description, price FROM products WHERE id = LAST_INSERT_ID()")){
-        
-        $products = [];  
-            
-        while ($row = mysqli_fetch_assoc($selQuery)){
-            $products[] = $row;
-        };
-            
-        echo json_encode($products);
-        }
-      
-    };
-    
-}
+        if($insQuery = mysqli_query($link, "INSERT INTO products VALUES (LAST_INSERT_ID(), '{$title}', '{$description}', '{$price}')")){
+            if($selQuery = mysqli_query($link, "SELECT id, title, description, price FROM products WHERE id = LAST_INSERT_ID()")){
 
+            $products = [];  
+
+            while ($row = mysqli_fetch_assoc($selQuery)){
+                $products[] = $row;
+            };
+
+            echo json_encode($products);
+            }
+
+        };
+
+    };
+}
 else{
     echo json_encode([ "status" => "error", "msg" => "fill the field!" ]);
 }

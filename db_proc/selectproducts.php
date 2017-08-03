@@ -7,7 +7,7 @@
     $sql = "SELECT id, title, description, price FROM products";
 
     if(!empty($id)){
-        $sql .= "WHERE id = $id";
+        $sql .= " WHERE id = $id";
     }
 
     if($query = mysqli_query($link,$sql)){

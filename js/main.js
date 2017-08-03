@@ -62,7 +62,7 @@ $(document).on('click', '.editProduct', function () {
         id: itemId
     }
 
-    $.get('db_proc/selectproducts.php', function (res) {
+    $.get('db_proc/selectproducts.php', iId, function (res) {
         $.each(res, function (id, obj) {
             $('#title').val(obj.title);
             $('#price').val(obj.price);

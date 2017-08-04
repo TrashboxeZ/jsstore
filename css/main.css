@@ -9,11 +9,15 @@ body {
   border-top: 1px solid #eee;
 }
 
+
+
 /* Main marketing message and sign up button */
 .jumbotron {
-  text-align: center;
-  background-color: transparent;
+    text-align: center;
+    background-color: transparent;
 }
+
+
 .jumbotron .btn {
   padding: 14px 24px;
   font-size: 21px;
@@ -65,3 +69,13 @@ body {
     position: absolute;
     left: 90px;
 }
+.btn .pagination{
+    padding-left: 100px;
+    color: black;
+}
+
+.pagination{
+    padding-left: 10px;
+}
+
+

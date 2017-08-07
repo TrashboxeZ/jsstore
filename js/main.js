@@ -1,19 +1,25 @@
 function appendProduct(obj) {
-    $('.product-list > .row').append("<div class='col-md-4' data-id = '" + obj.id + "'><h2>" + obj.title + "</h2><p>" + obj.price + "</p><p>" + obj.description + "</p><button class='btn btn-success editProduct' data-toggle='modal' data-target='#myModal'>Edit</button>&nbsp; &nbsp;<button class='btn btn-danger removeProduct'>Delete</button></div></div>");
+    $('.product-list > .row').append("<div class='col-md-3' data-id = '" + obj.id + "'><h2>" + obj.title + "</h2><p>" + obj.price + "</p><p>" + obj.description + "</p><button class='btn btn-success editProduct' data-toggle='modal' data-target='#myModal'>Edit</button>&nbsp; &nbsp;<button class='btn btn-danger removeProduct'>Delete</button></div></div>");
 }
 
-var count = 2;
+function appendPagination(obj){
+    $('ul.pagination').append("<li class=><a class='page-link' href='#' data-id='"+ obj +"'>"+ obj +"</a></li>");    
+}
 
- var limit = {
-        limit: count
-    }
 
-$.get('db_proc/selectproducts.php',limit, function (res) {
-    console.log(limit);
+$.get('db_proc/selectproducts.php?page=1', function (res) {
     $.each(res, function (id, obj) {
         appendProduct(obj);
     });
 });
+
+$.get('db_proc/pagination.php', function(res){
+    console.log(res, typeof res);
+    for(var i = 1; i <= res; i++){
+        appendPagination(i);
+    };
+});
+
 $('.newproduct').click(function () {
     var itemId = $(this).attr('data-id');
     var product = {
@@ -22,7 +28,6 @@ $('.newproduct').click(function () {
         , price: $('#price').val()
         , description: $('#description').val()
     };
-    console.log(itemId, typeof itemId);
     $.post('db_proc/addnewproduct.php', product, function (res) {
         console.log(res);
         $.each(res, function (id, obj) {
@@ -58,7 +63,6 @@ $(document).on('click', '.editProduct', function () {
     var point = this;
     var iId = {
         id: itemId,
-        limit: count
     }
     $.get('db_proc/selectproducts.php', iId, function (res) {
         $.each(res, function (id, obj) {
@@ -73,21 +77,18 @@ $(document).on('click', '.editProduct', function () {
     });
 });
 
-
-$('.pagination').click(function () {
-    console.log($(this).parent());
-    count += 2;
-    console.log(count, typeof count);
+$(document).on('click', '.page-link', function () {
+  $('.product-list > .row > div').remove();
+    var page = $(this).attr('data-id');
+//    $(document).find('ul.pagination > li').removeClass('active');
     
-    var limit = {
-        limit: count
-    }
-    
-    $.get('db_proc/selectproducts.php', limit, function (res) {
-        $('.product-list > .row > div').remove();
+    $.get('db_proc/selectproducts.php?page='+ page +"'", function (res) {
         $.each(res, function (id, obj) {
             appendProduct(obj);
         });
-        
     });
+  
+    
+    
+    
 });

@@ -55,7 +55,7 @@
             <p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet.</p>
             <p><a class="btn btn-lg btn-success" href="#" role="button">Get started today</a></p>
         </div>
-        
+
         <div class="row">
             <div class="col-md-12">
                 <button class="btn btn-success addProduct" data-toggle="modal" data-target="#myModal">NEW PRODUCT</button>
@@ -65,23 +65,29 @@
         <!-- Example row of columns -->
         <div class="product-list">
             <div class="row">
-                
+
             </div>
         </div>
-        
+
         <div class="row">
-            <div class="col-md-12">
-                <button class="btn btn-info pagination">Next 10</button>
+           <div class="col-md-4">
+            </div>
+            <div class="col-md-4">
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination">
+                    </ul>
+                </nav>
             </div>
         </div>
-            
+        <div class="col-md-4"></div>
+
         <!-- Site footer -->
         <footer class="footer">
             <p>&copy; Company 2017</p>
         </footer>
 
     </div>
-    
+
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -90,20 +96,20 @@
                     <h4 class="modal-title">New Product</h4>
                 </div>
                 <div class="modal-body">
-                <form>
-                    <div class="form-group">
-                        <label for="title">Product title</label>
-                        <input type="text" class="form-control" id="title" placeholder="Title">
-                    </div>
-                    <div class="form-group">
-                        <label for="price">Product Price</label>
-                        <input type="number" class="form-control" id="price" placeholder="Price">
-                    </div>
-                    <div class="form-group">
-                        <label for="description">Description</label>
-                        <textarea class="form-control" id="description"></textarea>
-                    </div>
-                </form>
+                    <form>
+                        <div class="form-group">
+                            <label for="title">Product title</label>
+                            <input type="text" class="form-control" id="title" placeholder="Title">
+                        </div>
+                        <div class="form-group">
+                            <label for="price">Product Price</label>
+                            <input type="number" class="form-control" id="price" placeholder="Price">
+                        </div>
+                        <div class="form-group">
+                            <label for="description">Description</label>
+                            <textarea class="form-control" id="description"></textarea>
+                        </div>
+                    </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -115,7 +121,7 @@
         <!-- /.modal-dialog -->
     </div>
     <!-- /.modal -->
-    
+
     <!-- /container -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
